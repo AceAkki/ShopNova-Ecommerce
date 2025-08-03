@@ -4,20 +4,23 @@ export class APICalls {
    this.data
   }
 
-  async fetchData(apiURL, method, bodyData) {
+  async fetchData(apiURL, method, bodyData, errorContainer) {
     this.data = null;
+    let errorMSg; 
 
     try {
       const response = await fetch(this.requestCall(apiURL, method, bodyData));
       
       if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
+        errorMSg = await response.json();        
+        throw new Error(`Response status: ${response.status} ${errorMSg.message}`);
       }
       const data = await response.json();
       this.data = data;
       return data;
     } catch (error) {
-      console.error(`Failed Operations due to : ${error}`);
+      console.error(`${error, errorMSg.message}`);
+      this.errorMessage(errorMSg.message, errorContainer);      
     }
   }
 
@@ -59,5 +62,11 @@ export class APICalls {
         const request = new Request(apiURL)
         return request;
     }    
-  } 
+  }
+  
+  errorMessage(message, container) {
+    let createElm = document.createElement("p");
+    createElm.textContent = message;
+    container.appendChild(createElm);
+  }
 }

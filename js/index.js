@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", ()=> {
   let userProfile;
   formElm.addEventListener("submit", async (event) => {
     let formData = callAPI.getFormData(formElm, event);
-    loginData = await retrieveData ('https://dummyjson.com/user/login', "POST", formData);
+    loginData = await retrieveData ('https://dummyjson.com/user/login', "POST", formData, formElm);
     userProfile = await retrieveData ('https://dummyjson.com/user/me', "GET", loginData.accessToken);
     console.log(loginData, userProfile); 
   })
@@ -25,7 +25,7 @@ async function getData(apiURL) {
   usersData = callAPI.data;
 }
 
-async function retrieveData (apiURL, method, bodyData) {
-    await callAPI.fetchData(apiURL, method, bodyData);
+async function retrieveData (apiURL, method, callValue, container) {
+    await callAPI.fetchData(apiURL, method, callValue, container);
     return callAPI.data;
 }
