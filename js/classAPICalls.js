@@ -1,16 +1,18 @@
 export class APICalls {
-  constructor({ apiURL }) {
-   this.apiURL = apiURL;
-   this.data
+  constructor({ formElement, errorClass }) {
+   this.data = null;
+   this.formSelector = formElement;
+   this.errorSelector = errorClass;
+   this.formElm = document.querySelector(this.formSelector);
+   
   }
 
-  async fetchData(apiURL, method, bodyData, errorContainer) {
+  async fetchData(apiURL, method, bodyData) {
     this.data = null;
     let errorMSg; 
-
+    console.log(this.formElm, this.formSelector)
     try {
       const response = await fetch(this.requestCall(apiURL, method, bodyData));
-      
       if (!response.ok) {
         errorMSg = await response.json();        
         throw new Error(`Response status: ${response.status} ${errorMSg.message}`);
@@ -20,7 +22,7 @@ export class APICalls {
       return data;
     } catch (error) {
       console.error(`${error, errorMSg.message}`);
-      this.errorMessage(errorMSg.message, errorContainer);      
+      this.errorMessage(errorMSg.message);      
     }
   }
 
@@ -64,9 +66,12 @@ export class APICalls {
     }    
   }
   
-  errorMessage(message, container) {
+  errorMessage(message) {
     let createElm = document.createElement("p");
+    createElm.classList.add(this.errorSelector);
+    createElm.style.color = "Red"
     createElm.textContent = message;
-    container.appendChild(createElm);
+    console.log(this.formElm)
+    this.formElm.appendChild(createElm);
   }
 }
