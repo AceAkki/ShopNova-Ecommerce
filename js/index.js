@@ -1,34 +1,85 @@
 import { APICalls } from "./classAPICalls.js";
+import { Pagination } from "./classPagination.js";
+
+document.addEventListener("DOMContentLoaded",  inIt)
 
 
-(async () => {  
- // await getData('https://dummyjson.com/users');
-})();
-
-document.addEventListener("DOMContentLoaded", ()=> {
+function inIt () {
   let formElm = document.querySelector("#loginForm");
-  console.log(formElm)
-  let loginData; 
-  let userProfile;
-  formElm.addEventListener("submit", async (event) => {
-    let formData = callAPI.getFormData(formElm, event);
-    loginData = await retrieveData ('https://dummyjson.com/user/login', "POST", formData);
-    userProfile = await retrieveData ('https://dummyjson.com/user/me', "GET", loginData.accessToken);
-    console.log(loginData, userProfile); 
+
+  const callAPI = new APICalls({
+    formElement : formElm,
+    errorClass : "api-error"
   })
-})
+  loginUser (formElm)
+   populateProducts() 
 
-const callAPI = new APICalls({
-  formElement : "#loginform",
-  errorClass : "api-error"
-})
+  function loginUser (formElm) {
+    let loginData; 
+    let userProfile;
+    formElm.addEventListener("submit", async (event) => {
+      let formData = callAPI.getFormData(formElm, event);
+      if (formData) {
+        loginData = await callAPI.fetchData ('https://dummyjson.com/user/login', "POST", formData);
+      }
+      if (loginData) {
+        userProfile = await callAPI.fetchData ('https://dummyjson.com/user/me', "GET", loginData.accessToken);
+        console.log(loginData, userProfile);  
+        return userProfile;
+      }
+    })
+  }
 
-async function getData(apiURL) {
-  await callAPI.fetchData(apiURL);
-  usersData = callAPI.data;
+  async function populateProducts() {
+    let productsData = await callAPI.fetchData ('https://dummyjson.com/products');
+    const paginationMain = new Pagination({
+      pageSize: 20,
+      maxPageNum: 3,
+      headerClassSelector : "navbar",
+      itemClassSelector : "product-card",
+      enableSortList: true,
+      itemCreator: generateItems,
+    });
+    paginationMain.initiatePagination(
+          productsData.products,
+          document.querySelector(".pagination"),
+          document.querySelector(".products-wrap .row")
+        );
+  }
 }
 
-async function retrieveData (apiURL, method, callValue) {
-    await callAPI.fetchData(apiURL, method, callValue);
-    return callAPI.data;
+
+// callback function to create Items
+function generateItems (data) {
+  let item = document.createElement("div");
+  item.classList.add("col", "col-lg-2", "col-med-3", "col-sm-12", "my-3");
+  item.innerHTML =`
+ <div class="product-card">
+    <div class="product-thumb">
+        <img src="${data.thumbnail}" alt="">
+    </div>
+    <div class="product-title">
+        ${data.title}
+    </div>
+    <div class="product-short-wrap">
+        <div class="product-price">
+            ${data.price}
+        </div>
+        <div class="product-rating">
+            <i class="ph-fill ph-star"></i>
+            <i class="ph-fill ph-star"></i>
+            <i class="ph-fill ph-star-half"></i>
+            <i class="ph ph-star"></i>
+            <i class="ph ph-star"></i>
+
+        </div>
+        <div class="addcart-btn-wrap">
+            <button class="addcart-btn">Add to Cart</button>
+        </div>
+
+    </div>
+</div>
+  ` 
+  return item;
 }
+

@@ -1,12 +1,30 @@
 :root {
-  --sidebarWidth: 430px;
-  --clr: ;
-  /* common */
-  --clr-primary: #1c418c;
-  --clr-secndry: #231f20;
-  --clr-lBlue: #c6d3e3;
-  --clr-white: #fff;
+  --primary-color: #FF3D00;        /* Vivid red-orange for CTAs */
+  --primary-hover: #DD2C00;        /* Darker tone for hover state */
+
+  --secondary-color: #00E5FF;      /* Bright cyan for accents */
+  --secondary-hover: #00B8D4;
+
+  --accent-color: #FFD600;         /* Electric yellow for highlights/promos */
+  --accent-hover: #FFAB00;
+
+  --danger-color: #D50000;         /* Intense red for error/delete */
+  --danger-hover: #B71C1C;
+
+  --success-color: #00C853;        /* Vibrant green for success messages */
+
+  --text-color: #212121;           /* Dark gray for readability */
+  --subtext-color: #616161;        /* Medium gray for secondary text */
+  --heading-color: #0D0D0D;        /* Deep black for emphasis */
+
+  --background-color: #FFFFFF;     /* Clean white background */
+  --section-bg: #FAFAFA;           /* Light gray for sections */
+  --border-color: #E0E0E0;         /* Subtle gray borders */
+
+  --brand-color: #6200EA;          /* Deep purple for branding elements */
 }
+
+
 
 * {
   margin: 0;
@@ -33,10 +51,9 @@ body {
 }
 
 .main-container {
-    background: rgba(255, 255, 255, 0.65);
-    margin: 6rem 1rem 1rem;
+    background: rgba(255, 255, 255, 0.95);
     padding: 1rem;
-    border-radius: 1rem;
+
 }
 
 .container {
@@ -72,6 +89,13 @@ body {
   text-align: center;
   font-size: 25px;
   font-family: "Source Code Pro", serif;
+}
+
+.login-wrap  {
+  display: none;
+  position: absolute;
+  top: 25vh;
+  left:20vw;
 }
 
 .login-wrap form {
@@ -137,8 +161,72 @@ body {
   display: flex;
 }
 
+/* Product CSS */
+.products-container {
+  margin: 2.5rem 2rem;
+}
+.product-card {
+  border: 1px solid var(--border-color);
+  background: var(--section-bg);
+  border-radius: 0.8rem;
+  padding: 1rem;
+  margin: 1rem 0;
+  min-height: 25rem;
+  max-height: 25rem;
+}
+
+.product-thumb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50%;
+  max-height: 50%;
+}
+
+.product-thumb img {
+  max-width: 100%;
+}
+
+.product-short-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.product-price {
+  font-size: 2rem;
+}
+
+.product-rating  {
+  color: var(--accent-color);
+  font-size: 1.4rem;
+}
+
+.product-card .addcart-btn {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  border: 2px solid var(--accent-hover);
+  border-radius: 1rem;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Product CSS End*/
+
+
+@media all and (min-width:1080px) {
+  .login-wrap {
+    left:unset;
+    right: 2vw;
+  }
+  .product-card {
+    margin: 0;
+  }
+}
 @media all and (min-width:1280px) {
     .data-container {
         grid-template-columns: repeat(6,1fr);
     }
 }
+

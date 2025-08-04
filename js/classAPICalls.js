@@ -1,16 +1,12 @@
 export class APICalls {
   constructor({ formElement, errorClass }) {
-   this.data = null;
    this.formSelector = formElement;
    this.errorSelector = errorClass;
-   this.formElm = document.querySelector(this.formSelector);
    
   }
 
   async fetchData(apiURL, method, bodyData) {
-    this.data = null;
     let errorMSg; 
-    console.log(this.formElm, this.formSelector)
     try {
       const response = await fetch(this.requestCall(apiURL, method, bodyData));
       if (!response.ok) {
@@ -18,7 +14,6 @@ export class APICalls {
         throw new Error(`Response status: ${response.status} ${errorMSg.message}`);
       }
       const data = await response.json();
-      this.data = data;
       return data;
     } catch (error) {
       console.error(`${error, errorMSg.message}`);
@@ -71,7 +66,6 @@ export class APICalls {
     createElm.classList.add(this.errorSelector);
     createElm.style.color = "Red"
     createElm.textContent = message;
-    console.log(this.formElm)
-    this.formElm.appendChild(createElm);
+    this.formSelector.appendChild(createElm);
   }
 }

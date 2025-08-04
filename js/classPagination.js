@@ -166,7 +166,7 @@ export class Pagination {
         createHref.classList.add("page-num");
         pageNavElm.appendChild(createLi);
         createLi.appendChild(createHref);
-        if (a+1 === this.checkURL(undefined, pageNavElm, "getParam")) {
+        if (a+1 === this.checkURL(null, pageNavElm, "getParam")) {
           createHref.classList.add("active");
         }
 
@@ -206,22 +206,24 @@ export class Pagination {
       //liElm.remove();
       let paramNum = this.checkURL(pageNavElm, container, "getParam");
       if (isNaN(paramNum)) paramNum = 1; 
-
       switch (operation) {
         case "add":
-          setTimeout( ()=> {
+          console.log(this.currentPage);
+          this.populateSections(pageNavElm,container,this.currentPage,paramNum + 1);
+          setTimeout(() => {
             classURLParam.setURL(this.param, paramNum + 1);
           }, 10);
         break;
-        case "minus" :
-          setTimeout( ()=> {
+        case "minus":
+          this.populateSections(pageNavElm,container,this.currentPage,paramNum - 1);
+          setTimeout(() => {
             classURLParam.setURL(this.param, paramNum - 1);
           }, 10);
         break;
         default:
-          console.log("Failed to match Operations")
+          console.log("Failed to match Operations");
         break;
-      }
+      }    
     }
   }
 
@@ -279,4 +281,3 @@ export class Pagination {
 
 
 }
-
