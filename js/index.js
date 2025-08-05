@@ -6,13 +6,13 @@ document.addEventListener("DOMContentLoaded",  inIt)
 
 function inIt () {
   let formElm = document.querySelector("#loginForm");
-
+  
   const callAPI = new APICalls({
     formElement : formElm,
     errorClass : "api-error"
   })
   loginUser (formElm)
-   populateProducts() 
+  populateProducts() 
 
   function loginUser (formElm) {
     let loginData; 
@@ -31,7 +31,7 @@ function inIt () {
   }
 
   async function populateProducts() {
-    let productsData = await callAPI.fetchData ('https://dummyjson.com/products');
+    let productsData = await callAPI.fetchData ('https://dummyjson.com/products?limit=0');
     const paginationMain = new Pagination({
       pageSize: 20,
       maxPageNum: 3,
@@ -50,9 +50,9 @@ function inIt () {
 
 
 // callback function to create Items
-function generateItems (data) {
+function generateItems (data) { 
   let item = document.createElement("div");
-  item.classList.add("col", "col-lg-2", "col-med-3", "col-sm-12", "my-3");
+  item.classList.add("col-lg-3", "col-med-12", "col-sm-12", "my-3");
   item.innerHTML =`
  <div class="product-card">
     <div class="product-thumb">
@@ -66,20 +66,107 @@ function generateItems (data) {
             ${data.price}
         </div>
         <div class="product-rating">
-            <i class="ph-fill ph-star"></i>
-            <i class="ph-fill ph-star"></i>
-            <i class="ph-fill ph-star-half"></i>
-            <i class="ph ph-star"></i>
-            <i class="ph ph-star"></i>
-
+                     
         </div>
         <div class="addcart-btn-wrap">
-            <button class="addcart-btn">Add to Cart</button>
+        <button class="addcart-btn">Add to Cart</button>
         </div>
-
-    </div>
-</div>
-  ` 
+        
+        </div>
+        </div>
+        ` 
+  createStar (generateRating(data.rating), item.querySelector(".product-rating"));
   return item;
 }
 
+function generateRating(rating) {
+  if (rating >= 4.50) {
+    return 5
+  }
+  else if (rating >= 4 && rating < 4.50) {
+    // console.log( rating, "4 full and half")
+    return 4.5
+  }
+  else if (rating >= 3.50 && rating < 4) {
+    // console.log(Math.ceil(rating), rating, "4")
+    return 4
+  }
+  else if (rating >= 3 && rating < 3.50) {
+    // console.log( rating, "3 full and half")
+    return 3.5
+  }
+  else if (rating >= 2.50 && rating < 3) {
+    // console.log(Math.ceil(rating), rating, "3")
+    return 3
+  }
+  else if (rating >= 2 && rating < 2.50) {
+    // console.log( rating, "2 full and half")
+    return 2.5
+  }
+  else if (rating >= 1.50 && rating < 2) {
+    // console.log(Math.ceil(rating), rating, "2")
+    return 2
+  }
+  else if (rating >= 1 && rating < 1.50) {
+    // console.log( rating, "1 full and half")
+    return 1.5
+  }
+  else if (rating >= 1.50 && rating < 2) {
+    // console.log(Math.ceil(rating), rating, "1")
+    return 1
+  } else {
+    // console.log(Math.ceil(rating), rating, "0")
+    return 0    
+  }
+
+}
+
+function createStar (num, parent) {
+  let maxStar = 5;
+  let starArr;
+  let emptyArr;
+  if (Number.isInteger(num)) {
+    let emptyNum = maxStar - num;
+    starArr = [...Array(num).keys()];
+    for(let i = 0; i < starArr.length; i++){
+      addfillStar(parent)
+    }
+    if (emptyNum > 0) {
+      emptyArr = [...Array(emptyNum).keys()];
+      for(let i = 0; i < emptyArr.length; i++){
+        addemptyStar(parent)
+      }
+    }
+  } else {
+    let fillNum = num - 0.5;
+    let emptyNum = maxStar - Math.ceil(num);
+    starArr = [...Array(fillNum).keys()];
+    for(let i = 0; i < starArr.length; i++){
+      addfillStar(parent)
+    }
+    addhalfStar(parent)
+    if (emptyNum > 0) {
+      emptyArr = [...Array(emptyNum).keys()];
+      for(let i = 0; i < emptyArr.length; i++){
+        addemptyStar(parent)
+      }
+    }
+  }
+}
+
+function addfillStar(parent){
+  let createI = document.createElement("i");
+  createI.classList.add("ph-fill", "ph-star");
+  parent.appendChild(createI);
+}
+
+function addhalfStar(parent){
+  let createI = document.createElement("i");
+  createI.classList.add("ph-fill", "ph-star-half");
+  parent.appendChild(createI);
+}
+function addemptyStar(parent){
+  let createI = document.createElement("i");
+  createI.classList.add("ph", "ph-star");
+  parent.appendChild(createI);
+}
