@@ -52,7 +52,7 @@ function inIt () {
 // callback function to create Items
 function generateItems (data) { 
   let item = document.createElement("div");
-  item.classList.add("col-lg-3", "col-med-12", "col-sm-12", "my-3");
+  item.classList.add("col-lg-2", "col-med-12", "col-sm-12", "my-3");
   item.innerHTML =`
  <div class="product-card">
     <div class="product-thumb">
