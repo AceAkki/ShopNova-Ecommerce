@@ -63,7 +63,7 @@ function generateItems (data) {
     </div>
     <div class="product-short-wrap">
         <div class="product-price">
-            ${data.price}
+           $ ${data.price}
         </div>
         <div class="product-rating">
                      
@@ -129,12 +129,12 @@ function createStar (num, parent) {
     let emptyNum = maxStar - num;
     starArr = [...Array(num).keys()];
     for(let i = 0; i < starArr.length; i++){
-      addfillStar(parent)
+      addFillStar(parent)
     }
     if (emptyNum > 0) {
       emptyArr = [...Array(emptyNum).keys()];
       for(let i = 0; i < emptyArr.length; i++){
-        addemptyStar(parent)
+        addEmptyStar(parent)
       }
     }
   } else {
@@ -142,30 +142,30 @@ function createStar (num, parent) {
     let emptyNum = maxStar - Math.ceil(num);
     starArr = [...Array(fillNum).keys()];
     for(let i = 0; i < starArr.length; i++){
-      addfillStar(parent)
+      addFillStar(parent)
     }
-    addhalfStar(parent)
+    addHalfStar(parent)
     if (emptyNum > 0) {
       emptyArr = [...Array(emptyNum).keys()];
       for(let i = 0; i < emptyArr.length; i++){
-        addemptyStar(parent)
+        addEmptyStar(parent)
       }
     }
   }
 }
 
-function addfillStar(parent){
+function addFillStar(parent){
   let createI = document.createElement("i");
   createI.classList.add("ph-fill", "ph-star");
   parent.appendChild(createI);
 }
 
-function addhalfStar(parent){
+function addHalfStar(parent){
   let createI = document.createElement("i");
   createI.classList.add("ph-fill", "ph-star-half");
   parent.appendChild(createI);
 }
-function addemptyStar(parent){
+function addEmptyStar(parent){
   let createI = document.createElement("i");
   createI.classList.add("ph", "ph-star");
   parent.appendChild(createI);

@@ -1,46 +1,44 @@
 :root {
-  --primary-color: #FF3D00;        /* Vivid red-orange for CTAs */
-  --primary-hover: #DD2C00;        /* Darker tone for hover state */
+  --primary-color: #ff5722; /* Bold tangerine for CTAs */
+  --primary-hover: #e64a19; /* Slightly darker for hover */
 
-  --secondary-color: #00E5FF;      /* Bright cyan for accents */
-  --secondary-hover: #00B8D4;
+  --secondary-color: #00bfa5; /* Tropical teal for accents */
+  --secondary-hover: #00897b; /* Deeper teal for hover */
 
-  --accent-color: #FFD600;         /* Electric yellow for highlights/promos */
-  --accent-hover: #FFAB00;
+  --accent-color: #ffc107; /* Bright amber for highlights */
+  --accent-hover: #ffa000; /* Golden amber for hover */
 
-  --danger-color: #D50000;         /* Intense red for error/delete */
-  --danger-hover: #B71C1C;
+  --danger-color: #f44336; /* Bright red for error/delete */
+  --danger-hover: #d32f2f; /* Deeper red for hover */
 
-  --success-color: #00C853;        /* Vibrant green for success messages */
+  --success-color: #4caf50; /* Fresh green for success messages */
+  --success-hover: #388e3c; /* Slightly darker for hover */
 
-  --text-color: #212121;           /* Dark gray for readability */
-  --subtext-color: #616161;        /* Medium gray for secondary text */
-  --heading-color: #0D0D0D;        /* Deep black for emphasis */
+  --text-color: #1c1c1e; /* Deep charcoal for primary text */
+  --text-color-light: #f5f5f7;
+  --subtext-color: #6e6e73; /* Soft gray for secondary text */
+  --heading-color: #111111; /* Near-black for strong headings */
 
-  --background-color: #FFFFFF;     /* Clean white background */
-  --section-bg: #FAFAFA;           /* Light gray for sections */
-  --border-color: #E0E0E0;         /* Subtle gray borders */
+  --background-color: #fdfdfd; /* Slightly off-white for comfort */
+  --section-bg: #f5f5f7; /* Pale gray for section contrast */
+  --product-bg: rgba(
+    108,
+    117,
+    125,
+    0.08
+  ); /* Light gray overlay for product cards */
+  --border-color: #dddddd; /* Clean light gray for dividers */
 
-  --brand-color: #6200EA;          /* Deep purple for branding elements */
+  --header-size: 0;
+  --brand-color: #7c4dff; /* Electric indigo for branding */
+  --brand-hover: #651fff; /* Deeper indigo for hover */
 }
-
-
 
 * {
   margin: 0;
   padding: 0;
 }
 
-select,
-option,
-input {
-  font-family: "Source Code Pro", serif;
-  background: #000;
-  color: #fff;
-  font-size: 15px;
-  padding: 10px 15px;
-  border-radius: 10px;
-}
 
 body {
   max-width: 100vw;
@@ -48,27 +46,94 @@ body {
   background: #000
     url(https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2xtd3NzeHQyNmF0bDhtdGs1eGt3YTJyZmFrdno4NnRqdWpmbTRjNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l1J3z5cm55zPHUyM8/giphy.gif)
     no-repeat center;
+  font-family: "Inter", sans-serif;
 }
+
+.btn {
+  border-width: 0;
+}
+
+/* Header */
+.navbar {
+  background: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(16.7px);
+  -webkit-backdrop-filter: blur(16.7px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+/* Header End */
+
+
+/* List */
+.container-fluid.list-container {
+  display: flex;
+  gap: 10px;
+  margin: 1rem 0 0;
+  justify-content: flex-start;
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+}
+
+.btn-secondary:hover, 
+.btn-secondary:active,
+.btn.show.btn-secondary,
+.btn-secondary:first-child:active
+{
+  background-color: var(--secondary-hover);
+}
+
+.list-container .dropdown-menu{
+ background: rgba(255, 255, 255, 0.84);
+ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+ backdrop-filter: blur(18.9px);
+ -webkit-backdrop-filter: blur(18.9px);
+ border: 1px solid rgba(255, 255, 255, 0.3);
+ border-radius: 16px;
+}
+
+.list-container .dropdown-header {
+  color: var(--heading-color);
+}
+
+.list-container .dropdown-item:focus, 
+.list-container .dropdown-item:active,
+.list-container .dropdown-item:hover
+{
+  background-color: var(--secondary-color);
+  color: var(--text-color-light);
+}
+
+/* List End*/
 
 .main-container {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 1rem;
-
+  background: rgba(255, 255, 255, 0.95);
+  padding: 1.5rem 1rem;
 }
 
-.container {
+.hero-container {
   display: flex;
   flex-direction: column;
-  margin: 20px;
-  gap: 30px;
+  margin-top: var(--header-size);
+  padding: 2rem;  
+}
+
+.hero-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+select,
+option,
+input {
+  font-family: "Source Code Pro", serif;
+  background: var(--primary-color);
   color: #fff;
-  background: rgba(255, 255, 255, 0.85);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(15.7px);
-  -webkit-backdrop-filter: blur(15.7px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 20px;
+  font-size: 15px;
+  padding: 10px 15px;
+  border-radius: 10px;
 }
 
 .mini-container {
@@ -91,11 +156,11 @@ body {
   font-family: "Source Code Pro", serif;
 }
 
-.login-wrap  {
+.login-wrap {
   display: none;
   position: absolute;
   top: 25vh;
-  left:20vw;
+  left: 20vw;
 }
 
 .login-wrap form {
@@ -129,20 +194,20 @@ body {
 }
 
 .data-container {
-    display: grid;
-    grid-template-columns: repeat(2,2fr);
-    margin: 20px;
-    gap: 30px;
-    color: var(--clr-primary);
-    background: rgba(255, 255, 255, 0.85);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(15.7px);
-    -webkit-backdrop-filter: blur(15.7px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 20px;
-    height: 100%;
-  }
+  display: grid;
+  grid-template-columns: repeat(2, 2fr);
+  margin: 20px;
+  gap: 30px;
+  color: var(--clr-primary);
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(15.7px);
+  -webkit-backdrop-filter: blur(15.7px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 20px;
+  height: 100%;
+}
 
 .card {
   display: flex;
@@ -166,6 +231,8 @@ body {
   margin: 2.5rem 2rem;
 }
 .product-card {
+  display: flex;
+  flex-direction: column;
   border: 1px solid var(--border-color);
   background: var(--section-bg);
   border-radius: 0.8rem;
@@ -179,12 +246,20 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: var(--product-bg);
+  border-radius: 0.5rem;
+  padding: 1rem;
   min-height: 50%;
   max-height: 50%;
 }
 
 .product-thumb img {
   max-width: 100%;
+}
+
+.product-title {
+  flex-grow: 1;
+  margin: 1rem 0;
 }
 
 .product-short-wrap {
@@ -197,7 +272,7 @@ body {
   font-size: 2rem;
 }
 
-.product-rating  {
+.product-rating {
   color: var(--accent-color);
   font-size: 1.4rem;
 }
@@ -214,19 +289,37 @@ body {
 
 /* Product CSS End*/
 
+.desk {
+  display: none;
+}
 
-@media all and (min-width:1080px) {
+.mobile {
+  display: block;
+}
+
+@media all and (min-width: 1080px) {
   .login-wrap {
-    left:unset;
+    left: unset;
     right: 2vw;
+  }
+  .hero-container,
+  .hero-container form {
+    flex-direction: row;
   }
   .product-card {
     margin: 0;
   }
-}
-@media all and (min-width:1280px) {
-    .data-container {
-        grid-template-columns: repeat(6,1fr);
-    }
-}
 
+  .desk {
+    display: block;
+  }
+
+  .mobile {
+    display: none;
+  }
+}
+@media all and (min-width: 1280px) {
+  .data-container {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
