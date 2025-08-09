@@ -1,31 +1,13 @@
 import { APICalls } from "./classAPICalls.js";
 import { Pagination } from "./classPagination.js";
+import { URLParam } from "./classURLParam.js";
+import { header, footer } from "./main.js";
 
-document.addEventListener("DOMContentLoaded",  inIt)
+document.addEventListener("DOMContentLoaded",  init)
 
+const classURLParam = new URLParam ();
 
-function inIt () {
-  let header = document.querySelector("#header");
-
-  fetch("header.html")
-  .then((response) => response.text())
-  .then((data) => {
-      header.innerHTML = data;
-
-      let headerSize = document.querySelector(".navbar").getBoundingClientRect().height;
-      const root = document.documentElement;
-      root.style.setProperty('--header-size', `${headerSize}px`);
-
-      let loginBtn = document.querySelector("#loginBtn");
-      loginBtn.addEventListener("click", () => {
-          let loginForm =  document.querySelector(".login-wrap");
-          let productContainer =  document.querySelector(".main-container");
-          let loginDisplay = window.getComputedStyle(loginForm).display;
-          loginForm.style.display = (loginDisplay === "none") ? "block" : "none" ;
-          productContainer.style.display = (loginForm.style.display === "block") ?  "none" : "block";
-      })
-  })
-  
+function init () {
   let formElm = document.querySelector("#loginForm");
   // intializes APICalls class
   const callAPI = new APICalls({
@@ -33,8 +15,8 @@ function inIt () {
     errorClass : "api-error"
   })
   loginUser (formElm)
-  populateProducts() 
-
+  populateProducts(getCategoryParam ());
+  searchProduct ()
 
   function loginUser (formElm) {
     let loginData; 
@@ -51,8 +33,12 @@ function inIt () {
       }
     })
   }
-  async function populateProducts() {
-    let productsData = await callAPI.fetchData ('https://dummyjson.com/products?limit=0');
+  async function populateProducts(urlparam) {
+    let mainURL = 'https://dummyjson.com/products';
+    let param;
+    param = urlparam ? `/${urlparam}` : '?limit=0'
+    console.log(mainURL+param)
+    let productsData = await callAPI.fetchData (mainURL+param);
     const paginationMain = new Pagination({
       pageSize: 20,
       maxPageNum: 3,
@@ -67,6 +53,27 @@ function inIt () {
           document.querySelector(".products-wrap .row")
         );
   }
+
+  function getCategoryParam () {
+    let mainParam = 'category';
+    let [windowPath, params] = classURLParam.getURL(); // destructuring
+    if (params.has(mainParam)) {
+      return `${mainParam}/${params.get(mainParam)}`
+    } else {
+      return
+    } 
+  
+  }
+
+  function searchProduct () {
+    document.addEventListener("layoutLoaded", () => {
+      header.querySelector("#searchBtn").addEventListener("click", () => {
+        let searchValue = header.querySelector("#searchInput").value;
+        populateProducts(`search?q=${searchValue}`); 
+      })
+    });
+    
+  }
 }
 
 
@@ -79,22 +86,30 @@ function generateItems (data) {
     <div class="product-thumb">
         <img src="${data.thumbnail}" alt="">
     </div>
-    <div class="product-title">
-        ${data.title}
-    </div>
-    <div class="product-short-wrap">
-        <div class="product-price">
-           $ ${data.price}
-        </div>
+
+    <div class="product-info">
+      <div class="product-title">
+      ${data.title} 
+      </div>      
+      <div class="product-category"> 
+      ${data.category} 
+      </div>
+      <div class="product-short-wrap">
         <div class="product-rating">
-                     
+                    
         </div>
-        <div class="addcart-btn-wrap">
-        <button class="addcart-btn">Add to Cart</button>
+       
+      <div class="addcart-btn-wrap">
+        <div class="product-price">
+          <i class="ph ph-currency-dollar"></i> ${data.price}
         </div>
-        
-        </div>
-        </div>
+          <button class="addcart-btn"><i class="ph ph-shopping-cart"></i></button>
+        </div>   
+      </div>
+
+    </div>
+
+    </div>
         ` 
   createStar (generateRating(data.rating), item.querySelector(".product-rating"));
   return item;
