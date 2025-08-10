@@ -5,7 +5,8 @@ import { header, footer } from "./main.js";
 
 const classURLParam = new URLParam ();
 const callAPI = new APICalls({
-  msgClass : "form-message"
+  msgClass : "form-message",
+  msgColor : "var(--danger-color)"
 })
 
 document.addEventListener("DOMContentLoaded",  init)

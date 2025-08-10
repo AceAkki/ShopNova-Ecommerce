@@ -1,6 +1,7 @@
 export class APICalls {
-  constructor({msgClass }) {
-   this.msgSelector = msgClass;
+  constructor({msgClass, msgColor }) {
+   this.messageSelector = msgClass;
+   this.messageColor = msgColor || "Red";
    
   }
 
@@ -16,7 +17,7 @@ export class APICalls {
       return data;
     } catch (error) {
       console.error(`${error, errorMSg.message}`);
-      this.errorMessage(HTMLElement, errorMSg.message);      
+      this.message(HTMLElement, errorMSg.message);      
     }
   }
 
@@ -62,8 +63,8 @@ export class APICalls {
   
   message(parent, message) {
     let createElm = document.createElement("p");
-    createElm.classList.add(this.msgSelector);
-    createElm.style.color = "Red"
+    createElm.classList.add(this.messageSelector);
+    createElm.style.color = this.messageColor;
     createElm.textContent = message;
     parent.appendChild(createElm);
   }

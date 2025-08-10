@@ -1,19 +1,19 @@
 :root {
   /* --- Brand Colors --- */
   --primary-color: #2563eb;
-  --primary-hover: #1e40af;
+  --primary-dark: #1e40af;
 
   --secondary-color: #10b981;
-  --secondary-hover: #047857;
+  --secondary-dark: #047857;
 
   --accent-color: #f59e0b;
-  --accent-hover: #d97706;
+  --accent-dark: #d97706;
 
   --danger-color: #ef4444;
-  --danger-hover: #b91c1c;
+  --danger-dark: #b91c1c;
 
   --success-color: #22c55e;
-  --success-hover: #15803d;
+  --success-dark: #15803d;
 
   /* --- Text --- */
   --text-color: #111827;
@@ -172,8 +172,17 @@ footer .container-fluid.list-container {
   min-height: 100vh;
 }
 
+label {
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+
 input {
   background-color: var(--background-color);
+  color: var(--primary-color);
+  padding: 0.5rem 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--primary-color);
 }
 
 /* Login  */
@@ -278,7 +287,7 @@ input {
 }
 
 .product-card .addcart-btn {
-  background-color: var(--primary-hover);
+  background-color: var(--primary-dark);
   color: var(--text-color-light);
   border: 1px solid var(--primary-color);
   border-radius: 1rem;
@@ -330,8 +339,8 @@ input {
 }
 
 .pagination li a.active {
-  background-color: var(--primary-hover);
-  border: 2px solid var(--primary-hover);
+  background-color: var(--primary-dark);
+  border: 2px solid var(--primary-dark);
   color: var(--text-color-light);
 }
 
