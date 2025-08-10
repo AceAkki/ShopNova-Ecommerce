@@ -122,6 +122,7 @@ class UserMain {
   
           </form>
           `
+      this.loginUser (document.querySelector("#loginForm"))
     } else if (param === this.signUpState) {
       formElem.innerHTML = 
         `
