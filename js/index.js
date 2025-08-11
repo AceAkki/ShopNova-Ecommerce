@@ -57,6 +57,23 @@ class UserMain {
     })
   }
 
+  signUpUser (formHTML) {
+    let signupData; 
+    let userProfile;
+    formHTML.addEventListener("submit", async (event) => {
+      let formData = callAPI.getFormData(formHTML, event);
+      if (formData) {
+        signupData = await callAPI.fetchData ('https://dummyjson.com/users/add', "POST", formData, formHTML);
+        this.successMessage(formHTML, "Sign Up Successful!")
+        return userProfile;
+      }
+      // if (loginData) {
+      //   userProfile = await callAPI.fetchData ('https://dummyjson.com/user/me', "GET", loginData.accessToken, formHTML);
+      //   console.log(loginData, userProfile);  
+      // }
+    })
+  }
+
   createDashboard(userProfile){  
 
   }
@@ -127,109 +144,264 @@ class UserMain {
     } else if (param === this.signUpState) {
       formElem.innerHTML = 
         `
-         <form action="/signup" method="POST">
-    
-    <div class="section">
+  <form action="/signup" method="POST" class="container mt-5">
+    <div class="mb-4">
       <h2>Personal Info</h2>
-      <label>First Name: <input type="text" name="firstName" required></label>
-      <label>Last Name: <input type="text" name="lastName" required></label>
-      <label>Maiden Name: <input type="text" name="maidenName"></label>
-      <label>Age: <input type="number" name="age" min="0"></label>
-      <label>Gender: 
-        <select name="gender">
-          <option value="female">Female</option>
-          <option value="male">Male</option>
-          <option value="other">Other</option>
-        </select>
-      </label>
-      <label>Birth Date: <input type="date" name="birthDate"></label>
-      <label>Eye Color: <input type="text" name="eyeColor"></label>
-      <label>Height (cm): <input type="number" name="height" step="0.01"></label>
-      <label>Weight (kg): <input type="number" name="weight" step="0.01"></label>
-      <label>Blood Group: <input type="text" name="bloodGroup"></label>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">First Name</label>
+          <input type="text" name="firstName" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Last Name</label>
+          <input type="text" name="lastName" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Maiden Name</label>
+          <input type="text" name="maidenName" class="form-control">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Age</label>
+          <input type="number" name="age" class="form-control" min="0">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Gender</label>
+          <select name="gender" class="form-select">
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Birth Date</label>
+          <input type="date" name="birthDate" class="form-control">
+        </div>
+        <div class="col-md-2">
+        <label class="form-label">Height (cm)</label>
+        <input type="number" name="height" step="0.01" class="form-control">
+        </div>
+        <div class="col-md-2">
+        <label class="form-label">Weight (kg)</label>
+        <input type="number" name="weight" step="0.01" class="form-control">
+        </div>
+        <div class="col-md-2">
+        <label class="form-label">Blood Group</label>
+        <input type="text" name="bloodGroup" class="form-control">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Eye Color</label>
+          <input type="text" name="eyeColor" class="form-control">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Hair Color</label>
+          <input type="text" name="hairColor" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Hair Type</label>
+          <input type="text" name="hairType" class="form-control">
+        </div>
+      </div>
     </div>
-    
-    <div class="section">
-      <h2>Hair</h2>
-      <label>Hair Color: <input type="text" name="hairColor"></label>
-      <label>Hair Type: <input type="text" name="hairType"></label>
-    </div>
-    
-    <div class="section">
+
+
+    <div class="mb-4">
       <h2>Account Details</h2>
-      <label>Username: <input type="text" name="username" required></label>
-      <label>Email: <input type="email" name="email" required></label>
-      <label>Password: <input type="password" name="password" required></label>
-      <label>Role: 
-        <select name="role">
-          <option value="user">User</option>
-          <option value="admin">Admin</option>
-        </select>
-      </label>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Username</label>
+          <input type="text" name="username" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Email</label>
+          <input type="email" name="email" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Password</label>
+          <input type="password" name="password" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Role</label>
+          <select name="role" class="form-select">
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+      </div>
     </div>
 
-    <div class="section">
+    <div class="mb-4">
       <h2>Contact Info</h2>
-      <label>Phone: <input type="tel" name="phone"></label>
-      <label>IP Address: <input type="text" name="ip"></label>
-      <label>MAC Address: <input type="text" name="macAddress"></label>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Phone</label>
+          <input type="tel" name="phone" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">IP Address</label>
+          <input type="text" name="ip" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">MAC Address</label>
+          <input type="text" name="macAddress" class="form-control">
+        </div>
+      </div>
     </div>
-    
-    <div class="section">
+
+    <div class="mb-4">
       <h2>Address</h2>
-      <label>Street Address: <input type="text" name="address"></label>
-      <label>City: <input type="text" name="city"></label>
-      <label>State: <input type="text" name="state"></label>
-      <label>State Code: <input type="text" name="stateCode"></label>
-      <label>Postal Code: <input type="text" name="postalCode"></label>
-      <label>Country: <input type="text" name="country"></label>
-      <label>Latitude: <input type="number" name="lat" step="0.00001"></label>
-      <label>Longitude: <input type="number" name="lng" step="0.00001"></label>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">Street Address</label>
+          <input type="text" name="address" class="form-control">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">City</label>
+          <input type="text" name="city" class="form-control">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">State</label>
+          <input type="text" name="state" class="form-control">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">State Code</label>
+          <input type="text" name="stateCode" class="form-control">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Postal Code</label>
+          <input type="text" name="postalCode" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Country</label>
+          <input type="text" name="country" class="form-control">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Latitude</label>
+          <input type="number" name="lat" step="0.00001" class="form-control">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Longitude</label>
+          <input type="number" name="lng" step="0.00001" class="form-control">
+        </div>
+      </div>
     </div>
-    
-    <div class="section">
+
+    <div class="mb-4">
       <h2>Company</h2>
-      <label>Company Name: <input type="text" name="companyName"></label>
-      <label>Department: <input type="text" name="department"></label>
-      <label>Title: <input type="text" name="title"></label>
-      <label>Company Address: <input type="text" name="companyAddress"></label>
-      <label>City: <input type="text" name="companyCity"></label>
-      <label>State: <input type="text" name="companyState"></label>
-      <label>Postal Code: <input type="text" name="companyPostalCode"></label>
-      <label>Country: <input type="text" name="companyCountry"></label>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Company Name</label>
+          <input type="text" name="companyName" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Department</label>
+          <input type="text" name="department" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Title</label>
+          <input type="text" name="title" class="form-control">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Company Address</label>
+          <input type="text" name="companyAddress" class="form-control">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">City</label>
+          <input type="text" name="companyCity" class="form-control">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">State</label>
+          <input type="text" name="companyState" class="form-control">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Postal Code</label>
+          <input type="text" name="companyPostalCode" class="form-control">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Country</label>
+          <input type="text" name="companyCountry" class="form-control">
+        </div>
+      </div>
     </div>
-    
-    <div class="section">
+
+    <div class="mb-4">
       <h2>Education & Identity</h2>
-      <label>University: <input type="text" name="university"></label>
-      <label>EIN: <input type="text" name="ein"></label>
-      <label>SSN: <input type="text" name="ssn"></label>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">University</label>
+          <input type="text" name="university" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">EIN</label>
+          <input type="text" name="ein" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">SSN</label>
+          <input type="text" name="ssn" class="form-control">
+        </div>
+      </div>
     </div>
 
-    <div class="section">
+    <div class="mb-4">
       <h2>Bank Info</h2>
-      <label>Card Number: <input type="text" name="cardNumber"></label>
-      <label>Card Expiry: <input type="text" name="cardExpire" placeholder="MM/YY"></label>
-      <label>Card Type: <input type="text" name="cardType"></label>
-      <label>Currency: <input type="text" name="currency"></label>
-      <label>IBAN: <input type="text" name="iban"></label>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Card Number</label>
+          <input type="text" name="cardNumber" class="form-control">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Card Expiry</label>
+          <input type="text" name="cardExpire" class="form-control" placeholder="MM/YY">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Card Type</label>
+          <input type="text" name="cardType" class="form-control">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Currency</label>
+          <input type="text" name="currency" class="form-control">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">IBAN</label>
+          <input type="text" name="iban" class="form-control">
+        </div>
+      </div>
     </div>
 
-    <div class="section">
+    <div class="mb-4">
       <h2>Crypto</h2>
-      <label>Coin: <input type="text" name="coin"></label>
-      <label>Wallet Address: <input type="text" name="wallet"></label>
-      <label>Network: <input type="text" name="network"></label>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Coin</label>
+          <input type="text" name="coin" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Wallet Address</label>
+          <input type="text" name="wallet" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Network</label>
+          <input type="text" name="network" class="form-control">
+        </div>
+      </div>
     </div>
 
-    <div class="section">
+    <div class="mb-4">
       <h2>Other</h2>
-      <label>User Agent: <input type="text" name="userAgent"></label>
-      <label>Profile Image URL: <input type="url" name="image"></label>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">User Agent</label>
+          <input type="text" name="userAgent" class="form-control">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Profile Image URL</label>
+          <input type="url" name="image" class="form-control">
+        </div>
+      </div>
     </div>
 
-    <br>
-    <button type="submit">Sign Up</button>
+    <div class="text-end mb-5">
+      <button type="submit" class="btn btn-primary px-4">Sign Up</button>
+    </div>
   </form>
         `
     }
@@ -280,7 +452,7 @@ class ProductMain {
   // callback function to create Items
   generateItems (data) { 
     let item = document.createElement("div");
-    item.classList.add("col-6", "col-lg-2", "col-sm-6", "my-3");
+    item.classList.add("col-6", "col-lg-2", "col-sm-6", "d-flex", "align-items-stretch");
     item.innerHTML =`
    <div class="product-card">
       <div class="product-thumb">
@@ -304,7 +476,7 @@ class ProductMain {
          
         <div class="addcart-btn-wrap">
           <div>
-            <button class="addcart-btn"> Add to Cart <i class="ph ph-shopping-cart"></i></button>
+            <button class="addcart-btn"> Add to Cart</button>
           </div>
           </div>   
         </div>
