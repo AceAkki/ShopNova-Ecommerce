@@ -31,7 +31,9 @@ export class URLParam {
 
   getURL() {
     // gets the location, gets search params
-    return [window.location, new URLSearchParams(window.location.search)];
+    let params = new URLSearchParams(window.location.search);
+    let lowerParams = new URLSearchParams(Array.from(params, ([key, value]) => [key.toLowerCase(), value.toLowerCase()]));
+    return [window.location, lowerParams];
   }
 }
 

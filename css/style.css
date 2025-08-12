@@ -211,6 +211,25 @@ select {
   border: 1px solid var(--primary-color);
 }
 
+button {
+  background-color: var(--primary-dark);
+  color: var(--text-color-light);
+  border: 1px solid var(--primary-color);
+  border-radius: 1rem;
+  padding: 0.8rem 1.5rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  transition: all 0.4s ease-in-out;
+}
+
+button:hover {
+  background-color: transparent;
+  color: var(--primary-color);
+}
+
+
 /* User  */
 .user-wrap {
   position: absolute;
@@ -231,12 +250,28 @@ select {
   backdrop-filter: blur(15.7px);
   -webkit-backdrop-filter: blur(15.7px);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 20px;
+  padding: 2.5rem;
 }
 
 .form-message {
   margin: 0.5rem 0;
   padding: 0.5rem 0.5rem;
+}
+
+#loginForm {
+  padding: 1rem;
+}
+
+#loginForm #submitBtn {
+  background: var(--primary-dark);
+  color: var(--text-color-light);
+  margin: 1rem 0;
+  transition: all 0.5s ease-in-out;
+}
+
+#loginForm #submitBtn:hover {
+  background: transparent;
+  color: var(--primary-dark);
 }
 
 /* User End */
