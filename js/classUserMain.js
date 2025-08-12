@@ -40,12 +40,9 @@ export class UserMain {
         if (formData) {
           signupData = await callAPI.fetchData ('https://dummyjson.com/users/add', "POST", formData, formHTML);
           this.successMessage(formHTML, "Sign Up Successful!")
-          return userProfile;
+          console.log(signupData);
+          return signupData;
         }
-        // if (loginData) {
-        //   userProfile = await callAPI.fetchData ('https://dummyjson.com/user/me', "GET", loginData.accessToken, formHTML);
-        //   console.log(loginData, userProfile);  
-        // }
       })
     }
   
@@ -380,7 +377,8 @@ export class UserMain {
       </div>
     </form>
           `
-      }
+        this.signUpUser(document.querySelector("#signupForm"))
+        }
     }
   
     getUserStateURL(formElem, mainElem) {
