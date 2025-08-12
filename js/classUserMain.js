@@ -34,7 +34,6 @@ export class UserMain {
   
     signUpUser (formHTML) {
       let signupData; 
-      let userProfile;
       formHTML.addEventListener("submit", async (event) => {
         let formData = callAPI.getFormData(formHTML, event);
         if (formData) {
@@ -92,7 +91,7 @@ export class UserMain {
   
     successMessage(parent, message) {
       let createElm = document.createElement("p");
-      createElm.classList.add("form-message")
+      createElm.classList.add(msgClass)
       createElm.style.color = "var(--success-color)"
       createElm.textContent = message;
       parent.appendChild(createElm);
