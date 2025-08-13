@@ -34,6 +34,7 @@ export class UserMain {
   
     signUpUser (formHTML) {
       let signupData; 
+      this.formNavigation(formHTML)
       formHTML.addEventListener("submit", async (event) => {
         let formData = callAPI.getFormData(formHTML, event);
         if (formData) {
@@ -41,6 +42,57 @@ export class UserMain {
           this.successMessage(formHTML, "Sign Up Successful!")
           console.log(signupData);
           return signupData;
+        }
+      })
+    }
+
+    formNavigation(formHTML) {
+      let allSections = formHTML.querySelectorAll(".form-section");
+      const sectionMap = new Map ();
+      allSections.forEach((section, index) => {
+        sectionMap.set((index +1).toString(), section);
+      })
+      document.querySelector("#nextBtn").addEventListener("click", (e)=> {
+        let currentSecArr = sectionMap.entries().find((entry) => {
+          let [key, value ] = entry;
+          if (value.classList.contains("show")) return entry
+        })
+        let [currentIndex, currentSection] = currentSecArr;
+        if (parseInt(currentIndex) > 0) {
+          document.querySelector("#prevBtn").style.display = "block";          
+        }
+        if ((parseInt(currentIndex) + 1) === allSections.length) {
+          e.target.classList.add("hide");
+          document.querySelector("#signupBtn").style.display = "block";
+        }
+        if (currentIndex < allSections.length) {
+          let nextIndex = (parseInt(currentIndex) + 1).toString()
+          let nextSection = sectionMap.get(nextIndex);
+          console.log(nextIndex, nextSection);
+          nextSection.classList.remove("hide");
+          nextSection.classList.add("show");
+          sectionMap.get(currentIndex).classList.remove("show");
+          sectionMap.get(currentIndex).classList.add("hide");
+        }
+      })
+      document.querySelector("#prevBtn").addEventListener("click", (e)=> {
+        let currentSecArr = sectionMap.entries().find((entry) => {
+          let [key, value ] = entry;
+          if (value.classList.contains("show")) return entry
+        })
+        let [currentIndex, currentSection] = currentSecArr;
+        console.log(parseInt(currentIndex) <= 2, parseInt(currentIndex))
+        if (parseInt(currentIndex) <= 2) {
+         document.querySelector("#prevBtn").style.display = "none";          
+        }
+        if (currentIndex > 1) {
+          let nextIndex = (parseInt(currentIndex) - 1).toString()
+          let nextSection = sectionMap.get(nextIndex);
+          console.log(nextIndex, nextSection);
+          nextSection.classList.remove("hide");
+          nextSection.classList.add("show");
+          sectionMap.get(currentIndex).classList.remove("show");
+          sectionMap.get(currentIndex).classList.add("hide");
         }
       })
     }
@@ -91,7 +143,7 @@ export class UserMain {
   
     successMessage(parent, message) {
       let createElm = document.createElement("p");
-      createElm.classList.add(msgClass)
+      createElm.classList.add(this.msgClass)
       createElm.style.color = "var(--success-color)"
       createElm.textContent = message;
       parent.appendChild(createElm);
@@ -116,8 +168,9 @@ export class UserMain {
       } else if (param === this.signUpState) {
         formElem.innerHTML = 
           `
+          
     <form action="/signup" method="POST" class="container mt-5" id="signupForm">
-      <div class="mb-4">
+      <div class="mb-4 form-section show">
         <h2>Personal Info</h2>
         <div class="row g-3">
           <div class="col-md-4">
@@ -176,7 +229,7 @@ export class UserMain {
       </div>
   
   
-      <div class="mb-4">
+      <div class="mb-4 form-section hide">
         <h2>Account Details</h2>
         <div class="row g-3">
           <div class="col-md-4">
@@ -201,7 +254,7 @@ export class UserMain {
         </div>
       </div>
   
-      <div class="mb-4">
+      <div class="mb-4 form-section hide">
         <h2>Contact Info</h2>
         <div class="row g-3">
           <div class="col-md-4">
@@ -219,7 +272,7 @@ export class UserMain {
         </div>
       </div>
   
-      <div class="mb-4">
+      <div class="mb-4 form-section hide">
         <h2>Address</h2>
         <div class="row g-3">
           <div class="col-md-6">
@@ -257,7 +310,7 @@ export class UserMain {
         </div>
       </div>
   
-      <div class="mb-4">
+      <div class="mb-4 form-section hide">
         <h2>Company</h2>
         <div class="row g-3">
           <div class="col-md-4">
@@ -295,7 +348,7 @@ export class UserMain {
         </div>
       </div>
   
-      <div class="mb-4">
+      <div class="mb-4 form-section hide">
         <h2>Education & Identity</h2>
         <div class="row g-3">
           <div class="col-md-4">
@@ -313,7 +366,7 @@ export class UserMain {
         </div>
       </div>
   
-      <div class="mb-4">
+      <div class="mb-4 form-section hide">
         <h2>Bank Info</h2>
         <div class="row g-3">
           <div class="col-md-4">
@@ -339,7 +392,7 @@ export class UserMain {
         </div>
       </div>
   
-      <div class="mb-4">
+      <div class="mb-4 form-section hide">
         <h2>Crypto</h2>
         <div class="row g-3">
           <div class="col-md-4">
@@ -357,7 +410,7 @@ export class UserMain {
         </div>
       </div>
   
-      <div class="mb-4">
+      <div class="mb-4 form-section hide">
         <h2>Other</h2>
         <div class="row g-3">
           <div class="col-md-6">
@@ -369,12 +422,22 @@ export class UserMain {
             <input type="url" name="image" class="form-control">
           </div>
         </div>
-      </div>
-  
-      <div class="text-end mb-5">
-        <button type="submit" >Sign Up</button>
-      </div>
+        </div>
+        
+        <div class="btn-wrap">
+        <div class="text-end mb-5">
+            <button id="prevBtn" >Previous</button>
+        </div>
+        <div class="text-end mb-5">
+            <button id="nextBtn" >Next</button>
+        </div>
+        <div class="text-end mb-5">
+          <button type="submit" id="signupBtn">Sign Up</button>
+        </div>
+            
+        </div>
     </form>
+          
           `
         this.signUpUser(document.querySelector("#signupForm"))
         }
