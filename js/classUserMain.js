@@ -85,6 +85,10 @@ export class UserMain {
         if (parseInt(currentIndex) <= 2) {
          document.querySelector("#prevBtn").style.display = "none";          
         }
+        if (parseInt(currentIndex) <= allSections.length) {
+          document.querySelector("#nextBtn").classList.remove("hide");
+          document.querySelector("#signupBtn").style.display = "none";
+        }
         if (currentIndex > 1) {
           let nextIndex = (parseInt(currentIndex) - 1).toString()
           let nextSection = sectionMap.get(nextIndex);
