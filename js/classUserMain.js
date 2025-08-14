@@ -46,60 +46,77 @@ export class UserMain {
       })
     }
 
+
+    getSection(array) {
+      return Array.from(array).find((entry) => {
+          let [key, value ] = entry;
+          if (value.classList.contains("show")) return entry
+      })
+    }
+
+    navigateForm (sectionMap, currentIndex, getMapKey) {
+      let targetKey = getMapKey;
+      let targetSection = sectionMap.get(targetKey);
+      targetSection.classList.remove("hide");
+      targetSection.classList.add("show");
+      sectionMap.get(currentIndex).classList.remove("show");
+      sectionMap.get(currentIndex).classList.add("hide");
+    }
+
     formNavigation(formHTML) {
       let allSections = formHTML.querySelectorAll(".form-section");
       const sectionMap = new Map ();
       allSections.forEach((section, index) => {
         sectionMap.set((index +1).toString(), section);
       })
-      document.querySelector("#nextBtn").addEventListener("click", (e)=> {
-        let currentSecArr = sectionMap.entries().find((entry) => {
-          let [key, value ] = entry;
-          if (value.classList.contains("show")) return entry
-        })
+      let nextBtn = document.querySelector("#nextBtn");
+      let prevBtn = document.querySelector("#prevBtn");
+      let signUpBtn = document.querySelector("#signupBtn");
+      
+      nextBtn.addEventListener("click", (e)=> {
+        let currentSecArr = this.getSection(sectionMap.entries());
         let [currentIndex, currentSection] = currentSecArr;
-        if (parseInt(currentIndex) > 0) {
-          document.querySelector("#prevBtn").style.display = "block";          
-        }
-        if ((parseInt(currentIndex) + 1) === allSections.length) {
-          e.target.classList.add("hide");
-          document.querySelector("#signupBtn").style.display = "block";
-        }
-        if (currentIndex < allSections.length) {
-          let nextIndex = (parseInt(currentIndex) + 1).toString()
-          let nextSection = sectionMap.get(nextIndex);
-          console.log(nextIndex, nextSection);
-          nextSection.classList.remove("hide");
-          nextSection.classList.add("show");
-          sectionMap.get(currentIndex).classList.remove("show");
-          sectionMap.get(currentIndex).classList.add("hide");
+        console.log(this.validateFormSection (currentSection))
+        if (this.validateFormSection (currentSection)) {
+          if (parseInt(currentIndex) > 0) { prevBtn.style.display = "block"; }
+          if ((parseInt(currentIndex) + 1) === allSections.length) {
+            e.target.classList.add("hide");
+            document.querySelector("#signupBtn").style.display = "block";
+          }
+          if (currentIndex < allSections.length) {
+            this.navigateForm(sectionMap, currentIndex, (parseInt(currentIndex) + 1).toString())
+          }        
         }
       })
-      document.querySelector("#prevBtn").addEventListener("click", (e)=> {
-        let currentSecArr = sectionMap.entries().find((entry) => {
-          let [key, value ] = entry;
-          if (value.classList.contains("show")) return entry
-        })
+      prevBtn.addEventListener("click", (e)=> {
+        let currentSecArr = this.getSection(sectionMap.entries());
         let [currentIndex, currentSection] = currentSecArr;
         console.log(parseInt(currentIndex) <= 2, parseInt(currentIndex))
         if (parseInt(currentIndex) <= 2) {
-         document.querySelector("#prevBtn").style.display = "none";          
+         prevBtn.style.display = "none";          
         }
         if (parseInt(currentIndex) <= allSections.length) {
-          document.querySelector("#nextBtn").classList.remove("hide");
+          nextBtn.classList.remove("hide");
           document.querySelector("#signupBtn").style.display = "none";
         }
         if (currentIndex > 1) {
-          let nextIndex = (parseInt(currentIndex) - 1).toString()
-          let nextSection = sectionMap.get(nextIndex);
-          console.log(nextIndex, nextSection);
-          nextSection.classList.remove("hide");
-          nextSection.classList.add("show");
-          sectionMap.get(currentIndex).classList.remove("show");
-          sectionMap.get(currentIndex).classList.add("hide");
+          this.navigateForm(sectionMap, currentIndex, (parseInt(currentIndex) - 1).toString())
         }
       })
     }
+
+    validateFormSection (section) {
+      const allFields = section.querySelectorAll("input, select");
+
+      for (const field of allFields) {
+        if (field.value === "" || field.value === "0") {
+          console.log(field.value)
+          return false;
+        } 
+      }
+      return true
+    }
+    
   
     createDashboard(userProfile){  
   
