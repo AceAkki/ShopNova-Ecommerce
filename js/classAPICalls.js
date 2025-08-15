@@ -1,7 +1,8 @@
 export class APICalls {
-  constructor({msgClass, msgColor }) {
+  constructor({msgClass, msgColorFail, msgColorSuccess }) {
    this.messageSelector = msgClass;
-   this.messageColor = msgColor || "Red";
+   this.messageFail = msgColorFail || "Red";
+   this.messageWin = msgColorSuccess || "Green";
    
   }
 
@@ -17,7 +18,7 @@ export class APICalls {
       return data;
     } catch (error) {
       console.error(`${error, errorMSg.message}`);
-      this.message(HTMLElement, errorMSg.message);      
+      this.message(HTMLElement, "false", errorMSg.message);      
     }
   }
 
@@ -61,10 +62,13 @@ export class APICalls {
     }    
   }
   
-  message(parent, message) {
+  message(parent, boolean, message) {
+    if (parent.getElementsByClassName(this.messageSelector)[0]) {
+      parent.getElementsByClassName(this.messageSelector)[0].remove();
+    }
     let createElm = document.createElement("p");
     createElm.classList.add(this.messageSelector);
-    createElm.style.color = this.messageColor;
+    createElm.style.color = boolean.toLowerCase() === "true" ?  this.messageWin : this.messageFail;
     createElm.textContent = message;
     parent.appendChild(createElm);
   }

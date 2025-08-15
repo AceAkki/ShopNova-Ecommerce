@@ -1,8 +1,7 @@
 <nav class="navbar fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="?main=Page">
-            <img src="logo.svg" alt="Logo"
-                class="d-inline-block align-text-top">
+            <img src="logo.svg" alt="Logo" class="d-inline-block align-text-top">
         </a>
         <div class="d-flex" role="search">
             <input class="me-2" type="search" placeholder="Search Product" aria-label="Search" id="searchInput">
@@ -10,155 +9,194 @@
         </div>
         <ul class="nav">
             <li class="nav-item desk">
+                <a class="nav-link" aria-current="page" id="cartBtn" title="Cart">
+                    <i class="ph ph-shopping-cart"></i></a>
+            </li>
+            <li class="nav-item desk">
+                <a class="nav-link" aria-current="page" id="heartBtn" title="Heart">
+                    <i class="ph ph-heart"></i></a>
+            </li>
+            <li class="nav-item desk">
                 <a class="nav-link" aria-current="page" title="Sign Up"> <i class="ph ph-user-plus"></i></a>
             </li>
             <li class="nav-item desk">
                 <a class="nav-link" aria-current="page" title="Login"> <i class="ph ph-sign-in"></i></a>
             </li>
+            <li class="nav-item hide">
+                <a class="nav-link" aria-current="page" id="userProfile" title="User">
+                    <img src="" alt="">
+                </a>
+            </li>
         </ul>
     </div>
     <div class="container-fluid list-container">
-    <div class="dropdown desk">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            All Categories
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
-            <li><a class="dropdown-item" href="?Products=All"> All </a></li>
+        <div class="dropdown desk">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                All Categories
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+                <li><a class="dropdown-item" href="?Products=All"> All </a></li>
 
-            <li><h6 class="dropdown-header">Personal Care & Beauty</h6></li>
-            <li><a class="dropdown-item" href="?category=beauty">Beauty</a></li>
-            <li><a class="dropdown-item" href="?category=fragrances">Fragrances</a></li>
-            <li><a class="dropdown-item" href="?category=skin-care">Skin Care</a></li>
+                <li>
+                    <h6 class="dropdown-header">Personal Care & Beauty</h6>
+                </li>
+                <li><a class="dropdown-item" href="?category=beauty">Beauty</a></li>
+                <li><a class="dropdown-item" href="?category=fragrances">Fragrances</a></li>
+                <li><a class="dropdown-item" href="?category=skin-care">Skin Care</a></li>
 
-            <li><hr class="dropdown-divider"></li>
-            <li><h6 class="dropdown-header">Men's Fashion</h6></li>
-            <li><a class="dropdown-item" href="?category=mens-shirts">Men's Shirts</a></li>
-            <li><a class="dropdown-item" href="?category=mens-shoes">Men's Shoes</a></li>
-            <li><a class="dropdown-item" href="?category=mens-watches">Men's Watches</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <h6 class="dropdown-header">Men's Fashion</h6>
+                </li>
+                <li><a class="dropdown-item" href="?category=mens-shirts">Men's Shirts</a></li>
+                <li><a class="dropdown-item" href="?category=mens-shoes">Men's Shoes</a></li>
+                <li><a class="dropdown-item" href="?category=mens-watches">Men's Watches</a></li>
 
-            <li><hr class="dropdown-divider"></li>
-            <li><h6 class="dropdown-header">Women's Fashion</h6></li>
-            <li><a class="dropdown-item" href="?category=womens-dresses">Women's Dresses</a></li>
-            <li><a class="dropdown-item" href="?category=womens-shoes">Women's Shoes</a></li>
-            <li><a class="dropdown-item" href="?category=womens-bags">Women's Bags</a></li>
-            <li><a class="dropdown-item" href="?category=womens-jewellery">Women's Jewellery</a></li>
-            <li><a class="dropdown-item" href="?category=womens-watches">Women's Watches</a></li>
-            <li><a class="dropdown-item" href="?category=tops">Tops</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <h6 class="dropdown-header">Women's Fashion</h6>
+                </li>
+                <li><a class="dropdown-item" href="?category=womens-dresses">Women's Dresses</a></li>
+                <li><a class="dropdown-item" href="?category=womens-shoes">Women's Shoes</a></li>
+                <li><a class="dropdown-item" href="?category=womens-bags">Women's Bags</a></li>
+                <li><a class="dropdown-item" href="?category=womens-jewellery">Women's Jewellery</a></li>
+                <li><a class="dropdown-item" href="?category=womens-watches">Women's Watches</a></li>
+                <li><a class="dropdown-item" href="?category=tops">Tops</a></li>
 
-            <li><hr class="dropdown-divider"></li>
-            <li><h6 class="dropdown-header">Electronics</h6></li>
-            <li><a class="dropdown-item" href="?category=smartphones">Smartphones</a></li>
-            <li><a class="dropdown-item" href="?category=tablets">Tablets</a></li>
-            <li><a class="dropdown-item" href="?category=laptops">Laptops</a></li>
-            <li><a class="dropdown-item" href="?category=mobile-accessories">Mobile Accessories</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <h6 class="dropdown-header">Electronics</h6>
+                </li>
+                <li><a class="dropdown-item" href="?category=smartphones">Smartphones</a></li>
+                <li><a class="dropdown-item" href="?category=tablets">Tablets</a></li>
+                <li><a class="dropdown-item" href="?category=laptops">Laptops</a></li>
+                <li><a class="dropdown-item" href="?category=mobile-accessories">Mobile Accessories</a></li>
 
-            <li><hr class="dropdown-divider"></li>
-            <li><h6 class="dropdown-header">Home & Living</h6></li>
-            <li><a class="dropdown-item" href="?category=furniture">Furniture</a></li>
-            <li><a class="dropdown-item" href="?category=home-decoration">Home Decoration</a></li>
-            <li><a class="dropdown-item" href="?category=kitchen-accessories">Kitchen Accessories</a></li>
-            <li><a class="dropdown-item" href="?category=groceries">Groceries</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <h6 class="dropdown-header">Home & Living</h6>
+                </li>
+                <li><a class="dropdown-item" href="?category=furniture">Furniture</a></li>
+                <li><a class="dropdown-item" href="?category=home-decoration">Home Decoration</a></li>
+                <li><a class="dropdown-item" href="?category=kitchen-accessories">Kitchen Accessories</a></li>
+                <li><a class="dropdown-item" href="?category=groceries">Groceries</a></li>
 
-            <li><hr class="dropdown-divider"></li>
-            <li><h6 class="dropdown-header">Vehicles</h6></li>
-            <li><a class="dropdown-item" href="?category=motorcycle">Motorcycle</a></li>
-            <li><a class="dropdown-item" href="?category=vehicle">Vehicle</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <h6 class="dropdown-header">Vehicles</h6>
+                </li>
+                <li><a class="dropdown-item" href="?category=motorcycle">Motorcycle</a></li>
+                <li><a class="dropdown-item" href="?category=vehicle">Vehicle</a></li>
 
-            <li><hr class="dropdown-divider"></li>
-            <li><h6 class="dropdown-header">Accessories</h6></li>
-            <li><a class="dropdown-item" href="?category=sunglasses">Sunglasses</a></li>
-            <li><a class="dropdown-item" href="?category=sports-accessories">Sports Accessories</a></li>
-        </ul>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <h6 class="dropdown-header">Accessories</h6>
+                </li>
+                <li><a class="dropdown-item" href="?category=sunglasses">Sunglasses</a></li>
+                <li><a class="dropdown-item" href="?category=sports-accessories">Sports Accessories</a></li>
+            </ul>
+        </div>
+
+        <!-- Individual dropdowns for each category -->
+        <div class="dropdown desk">
+            <button class="btn btn-secondary" type="button" id="beautyDropdown" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Personal Care
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="beautyDropdown">
+                <li><a class="dropdown-item" href="?category=beauty">Beauty</a></li>
+                <li><a class="dropdown-item" href="?category=fragrances">Fragrances</a></li>
+                <li><a class="dropdown-item" href="?category=skin-care">Skin Care</a></li>
+            </ul>
+        </div>
+
+        <div class="dropdown desk">
+            <button class="btn btn-secondary" type="button" id="menDropdown" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Men's Fashion
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="menDropdown">
+                <li><a class="dropdown-item" href="?category=mens-shirts">Men's Shirts</a></li>
+                <li><a class="dropdown-item" href="?category=mens-shoes">Men's Shoes</a></li>
+                <li><a class="dropdown-item" href="?category=mens-watches">Men's Watches</a></li>
+            </ul>
+        </div>
+
+        <div class="dropdown desk">
+            <button class="btn btn-secondary" type="button" id="womenDropdown" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Women's Fashion
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="womenDropdown">
+                <li><a class="dropdown-item" href="?category=womens-dresses">Women's Dresses</a></li>
+                <li><a class="dropdown-item" href="?category=womens-shoes">Women's Shoes</a></li>
+                <li><a class="dropdown-item" href="?category=womens-bags">Women's Bags</a></li>
+                <li><a class="dropdown-item" href="?category=womens-jewellery">Women's Jewellery</a></li>
+                <li><a class="dropdown-item" href="?category=womens-watches">Women's Watches</a></li>
+                <li><a class="dropdown-item" href="?category=tops">Tops</a></li>
+            </ul>
+        </div>
+
+        <div class="dropdown desk">
+            <button class="btn btn-secondary" type="button" id="elecDropdown" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Electronics
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="elecDropdown">
+                <li><a class="dropdown-item" href="?category=smartphones">Smartphones</a></li>
+                <li><a class="dropdown-item" href="?category=tablets">Tablets</a></li>
+                <li><a class="dropdown-item" href="?category=laptops">Laptops</a></li>
+                <li><a class="dropdown-item" href="?category=mobile-accessories">Mobile Accessories</a></li>
+            </ul>
+        </div>
+
+        <div class="dropdown desk">
+            <button class="btn btn-secondary" type="button" id="livingDropdown" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Home & Living
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="livingDropdown">
+                <li><a class="dropdown-item" href="?category=furniture">Furniture</a></li>
+                <li><a class="dropdown-item" href="?category=home-decoration">Home Decoration</a></li>
+                <li><a class="dropdown-item" href="?category=kitchen-accessories">Kitchen Accessories</a></li>
+                <li><a class="dropdown-item" href="?category=groceries">Groceries</a></li>
+            </ul>
+        </div>
+
+        <div class="dropdown desk">
+            <button class="btn btn-secondary" type="button" id="vechicleDropdown" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Vehicles
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="vechicleDropdown">
+                <li><a class="dropdown-item" href="?category=motorcycle">Motorcycle</a></li>
+                <li><a class="dropdown-item" href="?category=vehicle">Vehicle</a></li>
+            </ul>
+        </div>
+
+        <div class="dropdown desk">
+            <button class="btn btn-secondary" type="button" id="accessoriesDropdown" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Accessories
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="accessoriesDropdown">
+                <li><a class="dropdown-item" href="?category=sunglasses">Sunglasses</a></li>
+                <li><a class="dropdown-item" href="?category=sports-accessories">Sports Accessories</a></li>
+            </ul>
+        </div>
     </div>
-
-    <!-- Individual dropdowns for each category -->
-    <div class="dropdown desk">
-        <button class="btn btn-secondary" type="button" id="beautyDropdown" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Personal Care
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="beautyDropdown">
-            <li><a class="dropdown-item" href="?category=beauty">Beauty</a></li>
-            <li><a class="dropdown-item" href="?category=fragrances">Fragrances</a></li>
-            <li><a class="dropdown-item" href="?category=skin-care">Skin Care</a></li>
-        </ul>
-    </div>
-
-    <div class="dropdown desk">
-        <button class="btn btn-secondary" type="button" id="menDropdown" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Men's Fashion
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="menDropdown">
-            <li><a class="dropdown-item" href="?category=mens-shirts">Men's Shirts</a></li>
-            <li><a class="dropdown-item" href="?category=mens-shoes">Men's Shoes</a></li>
-            <li><a class="dropdown-item" href="?category=mens-watches">Men's Watches</a></li>
-        </ul>
-    </div>
-
-    <div class="dropdown desk">
-        <button class="btn btn-secondary" type="button" id="womenDropdown" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Women's Fashion
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="womenDropdown">
-            <li><a class="dropdown-item" href="?category=womens-dresses">Women's Dresses</a></li>
-            <li><a class="dropdown-item" href="?category=womens-shoes">Women's Shoes</a></li>
-            <li><a class="dropdown-item" href="?category=womens-bags">Women's Bags</a></li>
-            <li><a class="dropdown-item" href="?category=womens-jewellery">Women's Jewellery</a></li>
-            <li><a class="dropdown-item" href="?category=womens-watches">Women's Watches</a></li>
-            <li><a class="dropdown-item" href="?category=tops">Tops</a></li>
-        </ul>
-    </div>
-
-    <div class="dropdown desk">
-        <button class="btn btn-secondary" type="button" id="elecDropdown" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Electronics
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="elecDropdown">
-            <li><a class="dropdown-item" href="?category=smartphones">Smartphones</a></li>
-            <li><a class="dropdown-item" href="?category=tablets">Tablets</a></li>
-            <li><a class="dropdown-item" href="?category=laptops">Laptops</a></li>
-            <li><a class="dropdown-item" href="?category=mobile-accessories">Mobile Accessories</a></li>
-        </ul>
-    </div>
-
-    <div class="dropdown desk">
-        <button class="btn btn-secondary" type="button" id="livingDropdown" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Home & Living
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="livingDropdown">
-            <li><a class="dropdown-item" href="?category=furniture">Furniture</a></li>
-            <li><a class="dropdown-item" href="?category=home-decoration">Home Decoration</a></li>
-            <li><a class="dropdown-item" href="?category=kitchen-accessories">Kitchen Accessories</a></li>
-            <li><a class="dropdown-item" href="?category=groceries">Groceries</a></li>
-        </ul>
-    </div>
-
-    <div class="dropdown desk">
-        <button class="btn btn-secondary" type="button" id="vechicleDropdown" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Vehicles
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="vechicleDropdown">
-            <li><a class="dropdown-item" href="?category=motorcycle">Motorcycle</a></li>
-            <li><a class="dropdown-item" href="?category=vehicle">Vehicle</a></li>
-        </ul>
-    </div>
-
-    <div class="dropdown desk">
-        <button class="btn btn-secondary" type="button" id="accessoriesDropdown" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Accessories
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="accessoriesDropdown">
-            <li><a class="dropdown-item" href="?category=sunglasses">Sunglasses</a></li>
-            <li><a class="dropdown-item" href="?category=sports-accessories">Sports Accessories</a></li>
-        </ul>
-    </div>
-</div>
 
 </nav>

@@ -1,10 +1,12 @@
 import { APICalls } from "./classAPICalls.js";
 import { URLParam } from "./classURLParam.js";
+import { animateElem } from "./animate.js";
 
 const classURLParam = new URLParam ();
 const callAPI = new APICalls({
     msgClass : "form-message",
-    msgColor : "var(--danger-color)"
+    msgColorFail : "var(--danger-color)",
+    msgColorSuccess : "var(--success-color)"
   })
 
 export class UserMain {
@@ -25,8 +27,12 @@ export class UserMain {
         }
         if (loginData) {
           userProfile = await callAPI.fetchData ('https://dummyjson.com/user/me', "GET", loginData.accessToken, formHTML);
+          callAPI.message(formHTML, "true", "Login Successful!")
           console.log(loginData, userProfile);  
-          this.successMessage(formHTML, "Login Successful!")
+           setTimeout( ()=> {
+            animateElem.animateOut(formHTML);
+            this.createDashboard(formHTML.parentNode, userProfile)
+          }, 2000)
           return userProfile;
         }
       })
@@ -39,8 +45,11 @@ export class UserMain {
         let formData = callAPI.getFormData(formHTML, event);
         if (formData) {
           signupData = await callAPI.fetchData ('https://dummyjson.com/users/add', "POST", formData, formHTML);
-          this.successMessage(formHTML, "Sign Up Successful!")
+          callAPI.message(formHTML, "true", "Sign Up Successful!")
           console.log(signupData);
+          setTimeout( ()=> {
+            animateElem.animateOut(formHTML);
+          }, 5000)
           return signupData;
         }
       })
@@ -118,8 +127,151 @@ export class UserMain {
     }
     
   
-    createDashboard(userProfile){  
-  
+    createDashboard(parentNode, data){  
+     parentNode.innerHTML = `
+      <div class="dashboard-wrap">
+                <div class="basic-details">
+                    <div class="img-wrap">
+                        <img src="https://dummyjson.com/icon/emilys/128" alt="">
+                    </div>
+
+                    <div class="text-details">
+                        <div class="name-wrap">
+                            <h4> ${data.firstName}</h4>
+                            <h4> ${data.lastName}</h4>
+
+                        </div>
+
+                        <div class="info-wrap">
+                            <p>
+                              <strong>${data.role} : ${data.ip} - ${data.macAddress}</strong>
+                            </p>
+                        </div>
+                        
+                    </div>
+
+                    <hr>
+
+                </div>
+
+                <div class="main-details">
+                    <div class="account-details">
+                        <h5> Account Details</h5>
+                        <p>
+                            <strong> Username : </strong>
+                            <span>${data.username}</span>
+                        </p>
+                        <p>
+                            <strong> Password : </strong>
+                            <span>${data.password}</span>
+                        </p>
+                        <p>
+                            <strong> Email : </strong>
+                            <span>${data.email}</span>
+                        </p>
+                        <p>
+                            <strong> Phone : </strong>
+                            <span>${data.phone}</span>
+                        </p>
+                        <p>
+                            <strong> Age : </strong>
+                            <span>${data.age}</span>
+                        </p>
+                        <p>
+                            <strong> Gender : </strong>
+                            <span>${data.gender}</span>
+                        </p>
+                        <p>
+                            <strong> Birthdate : </strong>
+                            <span>${data.birthDate}</span>
+                        </p>
+
+                        
+                    </div>
+
+
+
+                    <div class="address-details">
+                        <h5> Address Details </h5>
+                        <p>
+                            <strong> Address : </strong>
+                            <span>${data.address.address}</span>
+                        </p>
+                        <p>
+                            <strong> City : </strong>
+                            <span>${data.address.city}</span>
+                        </p>
+                        <p>
+                            <strong> State : </strong>
+                            <span>${data.address.state}</span>
+                        </p>
+                        <p>
+                            <strong> State Code : </strong>
+                            <span>${data.address.stateCode}</span>
+                        </p>
+                        <p>
+                            <strong> Postal Code : </strong>
+                            <span>${data.address.postalCode}</span>
+                        </p>
+                        <p>
+                            <strong> Coordinates : </strong>
+                            <span>Latitude: ${data.address.coordinates.lat}, Longitude: ${data.address.coordinates.lng}</span>
+                        </p>
+                        <p>
+                            <strong> Country : </strong>
+                            <span>${data.address.country}</span>
+                        </p>
+                    </div>
+
+
+
+                    <div class="bank-details">
+                        <h5> Bank Details</h5>
+                        <p>
+                            <strong> Card Expiry : </strong>
+                            <span>${data.bank.cardExpire}</span>
+                        </p>
+                        <p>
+                            <strong> Card Number : </strong>
+                            <span>${data.bank.cardNumber}</span>
+                        </p>
+                        <p>
+                            <strong> Card Type : </strong>
+                            <span>${data.bank.cardType}</span>
+                        </p>
+                        <p>
+                            <strong> Currency : </strong>
+                            <span>${data.bank.currency}</span>
+                        </p>
+                        <p>
+                            <strong> IBAN : </strong>
+                            <span>${data.bank.iban}</span>
+                        </p>
+                    </div>
+
+
+
+                    <div class="crypto-details">
+                        <h5> Crypto Details</h5>
+                        <p>
+                            <strong> Coin : </strong>
+                            <span>${data.crypto.coin}</span>
+                        </p>
+                        <p>
+                            <strong> Wallet Address : </strong>
+                            <span>${data.crypto.wallet}</span>
+                        </p>
+                        <p>
+                            <strong> Network : </strong>
+                            <span>${data.crypto.network}</span>
+                        </p>
+                    </div>
+
+
+                </div>
+
+
+            </div>` 
     }
   
     addEventParam(elemArray, formElem, mainElem, param) {
@@ -162,14 +314,6 @@ export class UserMain {
       mainElem.style.display = formElem.querySelector("form") ? "none" : "block";
     }
   
-    successMessage(parent, message) {
-      let createElm = document.createElement("p");
-      createElm.classList.add(this.msgClass)
-      createElm.style.color = "var(--success-color)"
-      createElm.textContent = message;
-      parent.appendChild(createElm);
-    }
-  
     createForm (formElem, param) {
       if (param === this.loginState) {
         formElem.innerHTML = 
@@ -185,6 +329,7 @@ export class UserMain {
     
             </form>
             `
+         animateElem.animateFade(formElem);
         this.loginUser (document.querySelector("#loginForm"))
       } else if (param === this.signUpState) {
         formElem.innerHTML = 
@@ -460,6 +605,8 @@ export class UserMain {
     </form>
           
           `
+       
+        animateElem.animateFade(formElem);
         this.signUpUser(document.querySelector("#signupForm"))
         }
     }
