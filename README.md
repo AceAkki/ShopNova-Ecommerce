@@ -18,4 +18,5 @@
 This project fetches product data from:
 
 ```http
-https://dummyjson.com/products
+https://dummyjson.com/
+
