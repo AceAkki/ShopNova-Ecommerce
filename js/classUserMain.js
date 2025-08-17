@@ -41,7 +41,7 @@ export class UserMain {
            setTimeout( ()=> {
             animateElem.animateOut(formHTML);
             formHTML.remove();
-            classCookieManager.setCookie(this.cookieKeyOne, loginData.accessToken, 1);
+            classCookieManager.setCookie(this.cookieKeyOne, loginData.accessToken, 30);
             classURLParam.deleteParam(this.mainParam);
             this.displayElem(document.getElementsByClassName(this.userElem)[0], document.getElementsByClassName(this.containerElem)[0])
             this.loggedInState(userProfile)
@@ -485,6 +485,10 @@ export class UserMain {
     createDashboard(parentNode, data){  
       parentNode.innerHTML = `
        <div class="dashboard-wrap">
+                 <div class="btn-wrap"> 
+                 <i class="ph ph-pencil"></i>
+                 <i class="ph ph-sign-out"></i> 
+                 </div>
                  <div class="basic-details">
                      <div class="img-wrap">
                          <img src="https://dummyjson.com/icon/emilys/128" alt="">

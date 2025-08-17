@@ -13,6 +13,27 @@
   align-items: start;
 }
 
+.dashboard-wrap .btn-wrap {
+  align-self: flex-end;
+  display: flex;
+  gap: 2rem;
+}
+
+.dashboard-wrap .btn-wrap i {
+  font-size: 2rem;
+  border-radius: 0.5rem;
+}
+
+.dashboard-wrap .ph-pencil {
+  /* color: var(--text-color-light); */
+  color: var(--primary-dark);
+}
+
+.dashboard-wrap .ph-sign-out {
+  /* color: var(--text-color-light); */
+  color: var(--danger-color);
+}
+
 .img-wrap {
   display: flex;
   align-self: center;

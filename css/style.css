@@ -27,7 +27,11 @@
   --border-color: #e5e7eb; /* Neutral border */
 
   /* ✅ PRODUCT CARD BACKGROUND */
-  --product-bg: #f3f4f6; /* Tailwind Gray-100 – visible but soft */
+  --product-bg: radial-gradient(circle, #2563eb, #1e40af 60%);
+
+
+
+
   --product-bg-hover: #e5e7eb; /* Slight hover state */
 
   /* Optional subtle shadow to elevate cards */
