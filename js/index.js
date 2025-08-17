@@ -4,8 +4,10 @@ import { classProductMain } from "./classProductMain.js";
 import { header, footer } from "./main.js";
 
 const classURLParam = new URLParam ();
-const classUserMain = new UserMain ({});
-
+const classUserMain = new UserMain ({
+  userSelector : "user-wrap",
+  containerSelector : "products-container",
+});
 
 document.addEventListener("DOMContentLoaded",  init)
 
@@ -23,7 +25,7 @@ function init () {
   // intializes APICalls class
   classProductMain.populateProducts(getParam ("category"));
   layoutLoaded ()
-  classUserMain.getUserStateURL(userFormWrap, productContainer)
+  classUserMain.getUserState(userFormWrap, productContainer)
   
 
   function layoutLoaded () {
@@ -32,8 +34,9 @@ function init () {
         let searchValue = header.querySelector("#searchInput").value;
         classProductMain.populateProducts(`search?q=${searchValue}`); 
       })
-      classUserMain.addEventParam(document.querySelectorAll(".nav-link .ph-sign-in"), userFormWrap, productContainer, "login")
-      classUserMain.addEventParam(document.querySelectorAll(".nav-link .ph-user-plus"), userFormWrap, productContainer, "signup")
+      classUserMain.btnEvent(document.querySelectorAll(".nav-link .ph-sign-in"), userFormWrap, productContainer, "login")
+      classUserMain.btnEvent(document.querySelectorAll(".nav-link .ph-user-plus"), userFormWrap, productContainer, "signup")
+      classUserMain.btnEvent(document.querySelectorAll(".userProfile"), userFormWrap, productContainer, "dashboard")
     });
     
   }

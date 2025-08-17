@@ -17,8 +17,10 @@ export class APICalls {
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error(`${error, errorMSg.message}`);
-      this.message(HTMLElement, "false", errorMSg.message);      
+      console.error(`${error}`);
+      if (errorMSg.message) {
+        this.message(HTMLElement, "false", errorMSg.message); 
+      }
     }
   }
 

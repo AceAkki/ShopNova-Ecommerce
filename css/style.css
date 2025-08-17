@@ -91,6 +91,11 @@ body {
   font-size: 2rem;
 }
 
+.navbar .userProfile img {
+  width: 32px;
+  height: 32px;
+}
+
 /* Header End */
 
 /* Footer */
@@ -290,10 +295,10 @@ button:hover {
 
 /* Universal */
 .hide {
-  display: none;
+  display: none !important;
 }
 .show {
-  display: block;
+  display: block !important;
 }
 
 .desk {
