@@ -206,6 +206,16 @@ background: #f0f0f0 url('image.jpg') no-repeat center center / cover fixed paddi
   filter: blur(20px);
 }
 
+.hero-container {
+  margin: 0 -1rem;
+  /* background: url(../img/Flash.jpg)  no-repeat center center / cover
+    padding-box content-box; */
+}
+
+.hero-container img {
+  max-width: 100%;
+}
+
 label {
   color: var(--primary-dark);
   font-weight: 600;
