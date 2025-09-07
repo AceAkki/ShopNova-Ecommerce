@@ -1,3 +1,8 @@
+.hero-container .slide {
+    background: none;
+    padding: 0;
+
+}
 .slider-container {
     position:relative;
     min-width: 100%;
@@ -20,10 +25,13 @@
 
 .slide img {
     min-width: 100%;
+    max-width: 100%;
 }
 
 .slider-nav {
     display: flex;
+    align-items: center;
+    justify-content: center;
     margin: 2rem 0;
     gap: 2rem;
 }
