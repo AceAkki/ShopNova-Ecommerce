@@ -1,0 +1,29 @@
+.slider-container {
+    position:relative;
+    min-width: 100%;
+    margin: 1rem 0;
+    overflow: hidden;
+}
+
+.slider-wrapper {
+    display: flex;
+    min-width: 100%;
+    transition: all 0.3s ease-in-out;
+}
+
+.slide {
+    background: var(--primary-color);
+    min-width: 100%;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.slide img {
+    min-width: 100%;
+}
+
+.slider-nav {
+    display: flex;
+    margin: 2rem 0;
+    gap: 2rem;
+}
