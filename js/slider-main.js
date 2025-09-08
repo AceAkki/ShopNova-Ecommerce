@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   setInterval(  ()=> {
     nextSlide();
-  }, 5000)
+  }, 5500)
 
   function nextSlide() {
     console.log("click", currentProp + childWidth < childWidth * childrenLength)
@@ -40,3 +40,4 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
+
