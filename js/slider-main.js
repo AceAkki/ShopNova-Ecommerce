@@ -9,9 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelector(".slider-nav").addEventListener("click", (e) => {
     if (e.target.classList.contains("slider-prev")) {
-        prevSlide()
+        prevSlide();
     } else {
-        nextSlide()
+        nextSlide();
     }
   });
   
@@ -40,4 +40,5 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
+
 
