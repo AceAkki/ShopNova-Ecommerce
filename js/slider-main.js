@@ -9,18 +9,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelector(".slider-nav").addEventListener("click", (e) => {
     if (e.target.classList.contains("slider-prev")) {
-        prevSlide();
+        prevSlide()
     } else {
-        nextSlide();
+        clearInterval = intervalID;
+        nextSlide()
     }
   });
   
-  setInterval(  ()=> {
+  let intervalID = setInterval(  ()=> {
     nextSlide();
-  }, 5500)
+  }, 5000)
 
   function nextSlide() {
-    console.log("click", currentProp + childWidth < childWidth * childrenLength)
     if (currentProp + childWidth < childWidth * childrenLength) {
         console.log(currentProp + childWidth < childWidth * childrenLength)
       currentProp = currentProp + childWidth;
@@ -40,5 +40,3 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
-
-

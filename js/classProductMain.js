@@ -14,6 +14,15 @@ class ProductMain {
       param = urlparam ? `/${urlparam}` : '?limit=0'
       console.log(mainURL+param)
       let productsData = await callAPI.fetchData (mainURL+param);
+      let tempCategory = [];
+      for (const [key, value] of Object.entries(productsData["products"])) {
+        if (typeof(value) === "object") {
+          tempCategory.push(value["category"])
+          //Object.keys(value).map((key, value) => { console.log(key, value) })
+        }
+      }
+      let categories = new Set(tempCategory);
+      
       const paginationMain = new Pagination({
         pageSize: 20,
         maxPageNum: 3,
@@ -56,11 +65,11 @@ class ProductMain {
               <i class="ph ph-currency-dollar"></i> ${data.price}
             </div>
            
-          <div class="addcart-btn-wrap">
+          <!--<div class="addcart-btn-wrap">
             <div>
               <button class="addcart-btn"> Add to Cart</button>
             </div>
-            </div>   
+          </div>--!> 
           </div>
     
         </div>
