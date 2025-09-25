@@ -293,6 +293,25 @@ button:hover {
   color: var(--primary-color);
 }
 
+.categories-wrapper {
+  display: flex;
+  gap: 1rem;
+  overflow: scroll;
+  scroll-snap-type: mandatory;
+  margin: -1rem 0 0;
+}
+
+.category-card {
+  min-width: 20vw;
+  max-width: 20vw;
+}
+
+.category-card img {
+  width: 100%;
+  height:auto;
+  border-radius: 20px;
+}
+
 /* User  */
 .user-wrap {
   position: absolute;
@@ -398,6 +417,7 @@ button:hover {
     grid-template-columns: 50% auto;
     gap: 1rem;
     max-height: 80vh;
+    overflow: hidden;
   }
 
   .hero-wrapper .img-wrapper {
