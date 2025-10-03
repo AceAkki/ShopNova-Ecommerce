@@ -1,3 +1,18 @@
+/*
+Author : Akshay P
+Last Modified On :  2025 Sept 24th
+Last Modified By : Akshay P
+Important : 
+  -  needs constructor parameters filled to work properly, 
+  -  depends on URLParam class for state management, 
+  -  need item creator function that will create the elements and return it, 
+  -  needs phosphor-icons library for icons
+Comments : pagesize, max page navigation, sorting list can be controlled with constructor params 
+Change Log : 
+  [2025-09-24] - Added this.stringParam parameter to avoid mistakes in future 
+  [2025-09-24] - Updated logic for fallback if page limit is large, now takes user to the last page  
+*/
+
 import { URLParam } from "./classURLParam.js";
 
 const classURLParam = new URLParam ();
@@ -15,6 +30,8 @@ export class Pagination {
     this.param = param || "page"; 
     this.itemCreator = itemCreator;
 
+    this.stringParam = "getParam"
+
     this.paginatedData = [];
     this.navigationArrays = [];  
   }
@@ -29,6 +46,7 @@ export class Pagination {
     this.currentPage = 0;
 
     if ((Array.isArray(data)) && data.length > 0 ) {
+      // if enabled through the constructor parameter then sorts the list
       (this.enableSortList) ? this.sortList(data) : console.log("Data Not Sorted, Enable with [ enableSortList:true ]"); 
       for (let i = 0; i < data.length; i += this.pageSize) {
         // creates and pushes mini array's of data to paginatedData
@@ -46,10 +64,11 @@ export class Pagination {
   sortList(data) {
     // gets first object's keys
     let getKeys = Object.keys(data[0]);
-    // gets first string value that doesn't include forward slash "/" 9
+    // gets first string value that doesn't include forward slash "/" 
     let stringValue = getKeys.find(key => {
       return typeof(data[0][key]) === "string" && !(data[0][key].includes("/")) 
     })
+    // if string value exists then sorts the list
     if (stringValue) {
       data.sort((a, b) => a[stringValue].localeCompare(b[stringValue]) );
     } else {
@@ -57,21 +76,29 @@ export class Pagination {
     }
   }
 
+  // it can do two things - get URL param if such is mentioned or it will populate items
   checkURL(pageNavElm, container, getParam) {
     let [windowPath, params] = classURLParam.getURL();
+    // in case param does not exist then it logs it
     if (!(params.has(this.param))) console.log(`${this.param} param doesn't exists`);
 
+    // curretparam is used to track current position of the url and accordinly update the content
     let currentParam = parseInt(params.get(this.param));
+
+    // in case of minus or NaN value set to 1 to avoid errors
     if (isNaN(currentParam) || currentParam <= 0) { currentParam = 1 };
 
     switch (getParam) {
-      case "getParam":
+      case this.stringParam :
+        // returns the param if explicitly asked for
         return currentParam;
       break
       default:
+        // sets nav button to active based on the URL param, updates the param 
         if (params.has(this.param)) {
           let getActivePg = Array.from(pageNavElm.querySelectorAll("li a.page-num")).find(elm => parseInt(elm.dataset.value) === currentParam);
     
+          // if current navigation has the number that makes it active and populates all items 
           if (getActivePg) {
             pageNavElm.querySelectorAll("a.active").forEach((elm) => elm.classList.remove("active"));
             getActivePg.classList.add("active");  
@@ -79,19 +106,29 @@ export class Pagination {
             this.populateItems(container, currentParam);
             this.scrollToElement(container.querySelector(`.${this.itemClassSelector}`));
           };
+          // if page nav does't exists then it will load new nav then its content
           if (currentParam && !(getActivePg)) {
+            // checks if current param is within the data length, accordingly it loads to content
             if (!(currentParam > this.paginatedData.length)) {
               let tempNum = currentParam - 1;
               let indexNum;
+              // gets indexOf the tempNum then searches through that array to find 1 then sets its index num
               Array.from(this.navigationArrays.map(arr => arr.indexOf(tempNum))).forEach((elem, index) => {
                 if (elem > -1) {
                   indexNum = index;
                 }
               });
-              this.populateSections(pageNavElm, container, indexNum, parseInt(params.get(this.param)));
+              this.populateSections({
+                pageNavElm : pageNavElm, container: container, 
+                sectionIndex: indexNum, pageIndex: parseInt(params.get(this.param))});
             } else {
-              classURLParam.setURL(this.param, this.getActivePage(pageNavElm));
-              this.populateSections(pageNavElm, container, this.currentPage, this.currentPage);
+              classURLParam.setURL(this.param, this.paginatedData.length);
+              // loads the default page in scenario of param being higher number than data length
+              // this.populateSections(pageNavElm, container, this.currentPage, this.currentPage);
+
+              // loads last page in scenario of param being higher number than data length
+              this.populateSections({
+                pageNavElm : pageNavElm, container: container, sectionIndex: Array.from(this.navigationArrays.map(arr => arr.indexOf(this.paginatedData.length -1 ))).findIndex(elem => elem > -1), pageIndex: this.paginatedData.length});
             }
           };
 
@@ -101,7 +138,8 @@ export class Pagination {
 
   }
 
-  populateSections (pageNavElm, container, sectionIndex, pageIndex) {
+  // helper method used in checkURL poppulates all elems and nav
+  populateSections ({pageNavElm, container, sectionIndex, pageIndex}) {
     this.populateItems(container, pageIndex);
     this.renderPageNavigation(pageNavElm, sectionIndex);
     this.addEventListenerPageNav(pageNavElm, container);
@@ -110,6 +148,7 @@ export class Pagination {
     this.scrollToElement(container.querySelector(`.${this.itemClassSelector}`));
   }
 
+  // renders all items and navigation
   renderPage(pageNavElm, container) {
     // adds prev Nav button
     this.addNav(pageNavElm, "prev");
@@ -155,7 +194,7 @@ export class Pagination {
     if (num <= 0 || num > this.paginatedData.length) { indexNum = 0 };
     // if num is bigger add prevNav button    
     if (indexNum > 0) { this.addNav(pageNavElm, "prev") };
-    // craeted nav from navigationArrays based on indexNum value
+    // created nav from navigationArrays based on indexNum value
     this.currentPage = indexNum;
     this.navigationArrays[indexNum].forEach((a, index) => {
         let createLi = document.createElement("li");
@@ -166,7 +205,7 @@ export class Pagination {
         createHref.classList.add("page-num");
         pageNavElm.appendChild(createLi);
         createLi.appendChild(createHref);
-        if (a+1 === this.checkURL(null, pageNavElm, "getParam")) {
+        if (a+1 === this.checkURL(undefined, pageNavElm, this.stringParam)) {
           createHref.classList.add("active");
         }
 
@@ -201,35 +240,36 @@ export class Pagination {
     });
   }
 
+  // helper method to add event listener on navigation buttons
   arrowNavigation (pageNavElm, container, liElm, selector, operation) {
-    if (liElm.querySelector("i") &&liElm.querySelector("i").classList.contains(selector)) {
+    if (liElm.querySelector("i") && liElm.querySelector("i").classList.contains(selector)) {
       //liElm.remove();
-      let paramNum = this.checkURL(pageNavElm, container, "getParam");
+      let paramNum = this.checkURL(pageNavElm, container, this.stringParam);
       if (isNaN(paramNum)) paramNum = 1; 
+
+      // based on selector it either adds or minus page nav
       switch (operation) {
         case "add":
-          console.log(this.currentPage);
-          this.populateSections(pageNavElm,container,this.currentPage,paramNum + 1);
-          setTimeout(() => {
+          setTimeout( ()=> {
             classURLParam.setURL(this.param, paramNum + 1);
           }, 10);
         break;
-        case "minus":
-          this.populateSections(pageNavElm,container,this.currentPage,paramNum - 1);
-          setTimeout(() => {
+        case "minus" :
+          setTimeout( ()=> {
             classURLParam.setURL(this.param, paramNum - 1);
           }, 10);
         break;
         default:
-          console.log("Failed to match Operations");
+          console.log("Failed to match Operations")
         break;
-      }    
+      }
     }
   }
 
   // scrolls to the element
   scrollToElement (element) {
     const header = document.querySelector(`.${this.headerClass}`);
+    // if element and header exists then scroll to that element 
     if (element && header) {
       var headerOffset = header.getBoundingClientRect().height + 10;
       // element's position from top to viewport height
@@ -247,6 +287,7 @@ export class Pagination {
     }    
   }
 
+  // helper method that creates previous or next arrow
   addNav(pageNavElm, type) {
     let createLi = document.createElement("li");
     switch (type) {
@@ -268,7 +309,7 @@ export class Pagination {
     pageNavElm.appendChild(createLi);   
   }
 
-  // returns active page's data-value as Int
+  // helper method that returns active page's data-value as Int
   getActivePage(pageNavElm) {
     let active = pageNavElm.querySelector("a.active");
     if(active) { 
@@ -281,3 +322,4 @@ export class Pagination {
 
 
 }
+
