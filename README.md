@@ -2,6 +2,7 @@
 
 **ShopNova** is a front-end ecommerce website that dynamically loads products using the [DummyJSON](https://dummyjson.com) fake REST API. It's built with HTML, CSS, and vanilla JavaScript.
 
+
 ---
 
 ## 🚀 Features
@@ -13,7 +14,7 @@
 
 ---
 
-## 🌐 API Used: DummyJSON
+## 🌐 API Used: DummyJSON 
 
 This project fetches product data from:
 
